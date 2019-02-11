@@ -6,7 +6,7 @@ app.config.from_object('config')
 
 @app.route('/')
 def hello_world():
-    return 'Hello World!'
+    return 'Ca dasa la javanta!'
 
 
 if __name__ == '__main__':
