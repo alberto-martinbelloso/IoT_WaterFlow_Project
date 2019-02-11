@@ -6,6 +6,8 @@ __pycache__/
 *$py.class
 
 iotApp/__pycache__
+iotApp/*.pyc
+
 # C extensions
 *.so
 
