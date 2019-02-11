@@ -1,5 +1,7 @@
 from flask import Flask
 
+from iotApp.database import *
+
 
 def create_app(test_config=None):
     # create and configure the app
@@ -7,8 +9,12 @@ def create_app(test_config=None):
     app = Flask(__name__)
     app.config.from_object('config')
 
+    @app.route('/database_status')
+    def check_database_status():
+        return connect_to_database()
+
     @app.route('/')
-    def hello_world():
+    def locoplaya():
         return 'Ca dasa la javanta, que dese le jevente, qui disi li jivinti, co doso lo jovonto UUUUUU UUUUUUUU'
 
     return app
