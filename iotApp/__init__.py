@@ -1,17 +1,14 @@
 from flask import Flask
-
-from iotApp.database import *
-
+from iotApp.database import db
+from iotApp.mosquito import mosquito
 
 def create_app(test_config=None):
     # create and configure the app
 
     app = Flask(__name__)
     app.config.from_object('config')
-
-    @app.route('/database_status')
-    def check_database_status():
-        return connect_to_database()
+    app.register_blueprint(mosquito)
+    app.register_blueprint(db)
 
     @app.route('/')
     def locoplaya():
