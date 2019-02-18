@@ -18,7 +18,7 @@ client = InfluxDBClient(host=host, port=8086, database='waterflow')
 
 @db.route('/database_status')
 def check_database_status():
-    return getMeasures()
+    return host
 
 
 def insertPoint(tags, measures, timestamp):
