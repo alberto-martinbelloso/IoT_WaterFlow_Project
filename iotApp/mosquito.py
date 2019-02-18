@@ -1,6 +1,8 @@
 from flask import Blueprint, jsonify
+from iotApp.database import insertPoint
 import datetime
 import ttn
+import base64
 
 mosquito = Blueprint('mosquito', __name__)
 
@@ -13,6 +15,16 @@ last_notification = None
 def uplink_callback(msg, client):
     print("Received uplink from ", msg.dev_id)
     print(msg)
+
+    print("message raw is ", int.from_bytes(base64.b64decode(msg.payload_raw), 'big'))
+    insertPoint(
+        {
+            'dev_id': msg.dev_id
+        },
+        {
+            "value": int.from_bytes(base64.b64decode(msg.payload_raw), 'big')
+        }, msg.metadata.time)
+
     global last_notification
     last_notification = datetime.datetime.now().timestamp()
 
