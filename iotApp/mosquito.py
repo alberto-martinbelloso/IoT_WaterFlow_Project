@@ -13,16 +13,19 @@ last_notification = None
 
 
 def uplink_callback(msg, client):
-    print("Received uplink from ", msg.dev_id)
-    print(msg)
+    print(" INFO | Received uplink from ", msg.dev_id)
 
-    print("message raw is ", int.from_bytes(base64.b64decode(msg.payload_raw), 'big'))
+    buff = base64.b64decode(msg.payload_raw)
+    sum = 0
+    for bytes in buff:
+        sum = sum + bytes
+
     insertPoint(
         {
             'dev_id': msg.dev_id
         },
         {
-            "value": int.from_bytes(base64.b64decode(msg.payload_raw), 'big')
+            "value": sum
         }, msg.metadata.time)
 
     global last_notification
