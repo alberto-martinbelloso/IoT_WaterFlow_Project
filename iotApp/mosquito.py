@@ -35,11 +35,12 @@ def uplink_callback(msg, client):
     last_notification = datetime.datetime.now().timestamp()
 
     device_info = get_device(msg.dev_id)
-    if device_info is None or device_info['threshold'] < 20:
+    if device_info is None:
         return
     else:
-        print('storing alarm')
-        post_alarm(sum,msg.dev_id,msg.metadata.time)
+        if device_info['threshold'] <= sum:
+            print('storing alarm')
+            post_alarm(sum, msg.dev_id, msg.metadata.time)
 
 
 def connect_callback(res, client):
