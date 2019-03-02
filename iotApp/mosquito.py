@@ -40,7 +40,7 @@ def uplink_callback(msg, client):
     else:
         if device_info['threshold'] <= sum:
             print('storing alarm')
-            post_alarm(sum, msg.dev_id, msg.metadata.time);
+            post_alarm(sum, msg.dev_id, msg.metadata.time)
 
 
 def connect_callback(res, client):
