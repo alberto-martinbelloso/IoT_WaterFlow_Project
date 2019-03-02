@@ -16,15 +16,19 @@ last_notification = None
 
 
 def uplink_callback(msg, client):
-    payload_value = int.from_bytes(base64.b64decode(msg.payload_raw), 'big')
-    print(f"INFO | Message {msg.dev_id} from is {payload_value}")
+    print(" INFO | Received uplink from ", msg.dev_id)
+
+    buff = base64.b64decode(msg.payload_raw)
+    sum = 0
+    for bytes in buff:
+        sum = sum + bytes
 
     insertPoint(
         {
             'dev_id': msg.dev_id
         },
         {
-            "value": payload_value
+            "value": sum
         }, msg.metadata.time)
 
     global last_notification
@@ -35,7 +39,7 @@ def uplink_callback(msg, client):
         return
     else:
         print('storing alarm')
-        post_alarm(payload_value,msg.dev_id,msg.metadata.time)
+        post_alarm(sum,msg.dev_id,msg.metadata.time)
 
 
 def connect_callback(res, client):
