@@ -7,7 +7,7 @@ host = 'localhost'
 
 try:
     if os.environ["DEPLOY"]:
-        host = os.environ["DB_HOST"]
+        host = os.environ["INFLUX_HOST"]
 except Exception as e:
     print("Running on develop environment")
 

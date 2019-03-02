@@ -1,5 +1,8 @@
 from flask import Blueprint, jsonify
 from iotApp.database import insertPoint
+from iotApp.mongo import get_device
+from iotApp.alarms.alarms import post_alarm
+
 import datetime
 import ttn
 import base64
@@ -30,6 +33,13 @@ def uplink_callback(msg, client):
 
     global last_notification
     last_notification = datetime.datetime.now().timestamp()
+
+    device_info = get_device(msg.dev_id)
+    if device_info is None or device_info['threshold'] < 20:
+        return
+    else:
+        print('storing alarm')
+        post_alarm(sum,msg.dev_id,msg.metadata.time)
 
 
 def connect_callback(res, client):
