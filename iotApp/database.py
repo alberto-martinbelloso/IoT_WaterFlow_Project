@@ -24,7 +24,7 @@ def check_database_status():
 def insertPoint(tags, measures, timestamp):
     json_body = [
         {
-            "measurement": "flow",
+            "measurement": "waterflow",
             "tags": tags,
             "time": timestamp,
             "fields": measures
@@ -34,7 +34,7 @@ def insertPoint(tags, measures, timestamp):
 
 
 def getMeasures():
-    results = client.query('SELECT * FROM flow LIMIT 100;', database="waterflow")
+    results = client.query('SELECT * FROM waterflow LIMIT 100;', database="waterflow")
     points = results.get_points()
     measurements = ""
     for point in points:
