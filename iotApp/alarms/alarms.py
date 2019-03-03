@@ -11,6 +11,7 @@ def post_alarm(value, device_id, timestamp, threshold):
         "device_id": device_id,
         "value": value,
         "timestamp": timestamp,
+        "threshold": threshold,
         "message": f"Possible leak from device {device_id}. Received value is {value} and threshold {threshold}"
     }
     col.insert(alarm)
