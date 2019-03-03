@@ -38,9 +38,9 @@ def uplink_callback(msg, client):
     if device_info is None:
         return
     else:
-        if device_info['threshold'] <= sum:
-            print('storing alarm')
-            post_alarm(sum, msg.dev_id, msg.metadata.time)
+        if int(device_info['threshold']) <= sum:
+            print('INFO | Storing alarm')
+            post_alarm(sum, msg.dev_id, msg.metadata.time, device_info['threshold'])
 
 
 def connect_callback(res, client):
