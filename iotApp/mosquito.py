@@ -36,7 +36,7 @@ def uplink_callback(msg, client):
 
     device_info = get_device(msg.dev_id)
     if device_info is None:
-        return
+        print(' ERROR | Device not found')
     else:
         if int(device_info['threshold']) <= sum:
             print('INFO | Storing alarm')
